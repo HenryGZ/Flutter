@@ -5,6 +5,7 @@ void main() {
   print(dados['nome']);
   print(dados['endereco']['cidade']);
   print(dados['cursos']);
+  print(dados['cursos'][0]);
 }
 
 String dadosDoUsuario() {
