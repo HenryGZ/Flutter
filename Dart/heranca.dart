@@ -1,6 +1,22 @@
 void main() {
   cachorro cao = cachorro();
   cao.nome = 'Dog';
+  cao.idade = 2;
+
+  gato cat = gato();
+  cat.nome = 'Cat';
+  cat.idade = 1;
+
+  List<animal> animais = [];
+  animais.add(cao);
+  animais.add(cat);
+
+  animal animal1 = animais.first;
+  if (animal1 is cachorro) {
+    animal1.latir();
+  } else if (animal1 is gato) {
+    animal1.miar();
+  }
 }
 
 class animal {
