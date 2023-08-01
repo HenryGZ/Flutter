@@ -3,9 +3,14 @@ void main() {
   pessoa pessoa2 = pessoa.casada(nome: 'Maria', idade: 25);
   pessoa pessoa3 = pessoa.solteira(nome: 'Pedro', idade: 40);
 
+  print('_____________SET_____________');
   pessoa1.dinheiro = 100;
   pessoa2.dinheiro = 200;
   pessoa3.dinheiro = 300;
+  print('____________GET______________');
+  print('dinheiro do ${pessoa1.nome} é ${pessoa1.dinheiro}');
+  print('dinheiro do ${pessoa2.nome} é ${pessoa2.dinheiro}');
+  print('dinheiro do ${pessoa3.nome} é ${pessoa3.dinheiro}');
 }
 
 class pessoa {
