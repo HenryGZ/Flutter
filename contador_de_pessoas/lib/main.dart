@@ -11,7 +11,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       debugShowCheckedModeBanner: false, //tira o banner de debug
       home: HomePage(),
     );
@@ -26,20 +26,33 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  int count = 0;
+  int countEles = 0;
+  int countNos = 0;
 
-  void decressimo() {
+  bool get isEmpityEles => countEles == 0; //se count for igual a 0 retorna true
+  bool get isFullEles => countEles == 15; //se count for igual a 10 retorna true
+
+  bool get isEmpityNos => countNos == 0; //se count for igual a 0 retorna true
+  bool get isFullNos => countNos == 15; //se count for igual a 10 retorna true
+
+  void decressimo(int local) {
     setState(() {
-      count--;
+      if (local == 1) {
+        countEles--;
+      } else {
+        countNos--;
+      }
     });
-    print(count);
   }
 
-  void acressimo() {
+  void acressimo(int local) {
     setState(() {
-      count++;
+      if (local == 1) {
+        countEles++;
+      } else {
+        countNos++;
+      }
     });
-    print(count);
   }
 
   @override
@@ -47,42 +60,54 @@ class _HomePageState extends State<HomePage> {
     //responsável por construir a tela
     // ignore: prefer_const_constructors
     return Scaffold(
-        backgroundColor: const Color.fromARGB(255, 255, 0, 0),
+        backgroundColor: const Color.fromARGB(255, 61, 61, 61),
         // ignore: prefer_const_constructors
         body: Container(
-          decoration: const BoxDecoration(
+          decoration: BoxDecoration(
             image: DecorationImage(
-              //image: NetworkImage('https://picsum.photos/200/300'),  //imagem da internet
-              image: AssetImage('assets/images/background.jpg'),
-              fit: BoxFit.cover, //preenche todo o espaço
+              image: const AssetImage('assets/images/background.jpg'),
+              fit: BoxFit.fill,
+              colorFilter: ColorFilter.mode(
+                Colors.black.withOpacity(0.1),
+                BlendMode.dstATop,
+              ),
             ),
           ),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const Text('Contador de cliques',
-                  style: TextStyle(
+              Text(
+                isFullEles ? 'Ganhou!!' : 'Eles',
+                style: TextStyle(
                     fontSize: 28,
-                    color: Color.fromARGB(255, 195, 195, 195),
                     fontWeight: FontWeight.w800,
-                  )),
-
+                    color: isFullEles
+                        ? const Color.fromARGB(255, 255, 0, 0)
+                        : Colors.white),
+              ),
               //const SizedBox(height: 30),
               Padding(
                 padding: const EdgeInsets.all(30),
                 child: Text(
-                  '$count', //ou count.toString()
-                  style: const TextStyle(fontSize: 100, color: Colors.white),
+                  '$countEles', //ou count.toString()
+                  style: TextStyle(
+                      fontSize: 100,
+                      color: isFullEles
+                          ? const Color.fromARGB(255, 255, 0, 0)
+                          : Colors.white),
                 ),
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   TextButton(
-                    onPressed: decressimo,
+                    onPressed: isEmpityEles ? null : () => decressimo(1),
                     style: TextButton.styleFrom(
                         foregroundColor: Colors.black,
-                        backgroundColor: Colors.white,
+                        backgroundColor: isEmpityEles
+                            ? Colors.white.withOpacity(0.20)
+                            : Colors.white,
+                        //se o contador for igual a 0 o botão fica desabilitado e troca de cor informando ao usuário
                         fixedSize: const Size(100, 50),
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10)),
@@ -94,10 +119,73 @@ class _HomePageState extends State<HomePage> {
                   ),
                   const SizedBox(width: 30),
                   TextButton(
-                    onPressed: acressimo,
+                    onPressed: isFullEles ? null : () => acressimo(1),
                     style: TextButton.styleFrom(
                         foregroundColor: Colors.black,
-                        backgroundColor: Colors.white,
+                        backgroundColor: isFullEles
+                            ? Colors.white.withOpacity(0.2)
+                            : Colors.white,
+                        fixedSize: const Size(100, 50),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10)),
+                        padding: const EdgeInsets.all(15)),
+                    child: const Text(
+                      'Mais',
+                      style: TextStyle(color: Colors.black, fontSize: 20),
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 200), //espaçamento entre os contadores
+              Text(
+                isFullNos ? 'Ganhou!!' : 'Nós',
+                style: TextStyle(
+                    fontSize: 28,
+                    fontWeight: FontWeight.w800,
+                    color: isFullNos
+                        ? const Color.fromARGB(255, 255, 0, 0)
+                        : Colors.white),
+              ),
+              //const SizedBox(height: 30),
+              Padding(
+                padding: const EdgeInsets.all(20),
+                child: Text(
+                  '$countNos', //ou count.toString()
+                  style: TextStyle(
+                      fontSize: 100,
+                      color: isFullNos
+                          ? const Color.fromARGB(255, 255, 0, 0)
+                          : Colors.white),
+                ),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  TextButton(
+                    onPressed: isEmpityNos ? null : () => decressimo(2),
+                    style: TextButton.styleFrom(
+                        foregroundColor: Colors.black,
+                        backgroundColor: isEmpityNos
+                            ? Colors.white.withOpacity(0.20)
+                            : Colors.white,
+                        //se o contador for igual a 0 o botão fica desabilitado e troca de cor informando ao usuário
+                        fixedSize: const Size(100, 50),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10)),
+                        padding: const EdgeInsets.all(15)),
+                    child: const Text(
+                      'Menos',
+                      style: TextStyle(color: Colors.black, fontSize: 20),
+                    ),
+                  ),
+                  const SizedBox(width: 30),
+                  TextButton(
+                    onPressed: isFullNos ? null : () => acressimo(2),
+                    style: TextButton.styleFrom(
+                        foregroundColor: Colors.black,
+                        backgroundColor: isFullNos
+                            ? Colors.white.withOpacity(0.2)
+                            : Colors.white,
                         fixedSize: const Size(100, 50),
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10)),
