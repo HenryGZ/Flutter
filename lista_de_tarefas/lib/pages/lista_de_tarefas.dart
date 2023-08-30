@@ -3,34 +3,77 @@ import 'package:flutter/material.dart';
 class TodoListPage extends StatelessWidget {
   TodoListPage({Key? key}) : super(key: key);
 
-  final TextEditingController emailController = TextEditingController();
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
         child: Padding(
-          padding: const EdgeInsets.all(20),
+          padding: const EdgeInsets.all(8.0),
           child: Column(
+            mainAxisSize: MainAxisSize.min,
             children: [
-              TextField(
-                controller: emailController,
-                decoration: InputDecoration(
-                  labelText: 'Email',
-                  border: OutlineInputBorder(),
-                ),
+              Row(
+                children: [
+                  Expanded(
+                    child: TextField(
+                      decoration: InputDecoration(
+                          border: OutlineInputBorder(),
+                          labelText: 'Adicione uma tarefa: ',
+                          hintText: 'Ex: Comprar pão'),
+                    ),
+                  ),
+                  SizedBox(width: 8),
+                  ElevatedButton(
+                    onPressed: () {},
+                    child: Text(
+                      'Adicionar',
+                      style: TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
+                    ),
+                    style: ElevatedButton.styleFrom(
+                      primary: Color.fromARGB(255, 0, 0, 0),
+                      fixedSize: Size(100, 59),
+                    ),
+                  ),
+                ],
               ),
-              ElevatedButton(onPressed: null, child: Text('Enviar'))
+              SizedBox(
+                height: 30,
+              ),
+              Row(
+                children: [
+                  Expanded(
+                    child: Text(
+                      'Voce possui 0 tarefas pendentes',
+                      style:
+                          TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                  SizedBox(width: 8),
+                  ElevatedButton(
+                    onPressed: () {},
+                    child: Text(
+                      'Remover',
+                      style: TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
+                    ),
+                    style: ElevatedButton.styleFrom(
+                      primary: Color.fromARGB(255, 0, 0, 0),
+                      fixedSize: Size(100, 59),
+                    ),
+                  )
+                ],
+              )
             ],
           ),
         ),
       ),
     );
-  }
-
-  void entrar() {
-    String text = emailController.text;
-    print(text);
-    emailController.clear();
   }
 }
