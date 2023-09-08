@@ -1,7 +1,16 @@
 import 'package:flutter/material.dart';
 
-class TodoListPage extends StatelessWidget {
+class TodoListPage extends StatefulWidget {
   TodoListPage({Key? key}) : super(key: key);
+
+  @override
+  State<TodoListPage> createState() => _TodoListPageState();
+}
+
+class _TodoListPageState extends State<TodoListPage> {
+  final TextEditingController todoController = TextEditingController();
+
+  List<String> todoList = [];
 
   @override
   Widget build(BuildContext context) {
@@ -16,6 +25,7 @@ class TodoListPage extends StatelessWidget {
                 children: [
                   Expanded(
                     child: TextField(
+                      controller: todoController,
                       decoration: InputDecoration(
                           border: OutlineInputBorder(),
                           labelText: 'Adicione uma tarefa: ',
@@ -24,7 +34,13 @@ class TodoListPage extends StatelessWidget {
                   ),
                   SizedBox(width: 8),
                   ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      String text = todoController.text;
+                      setState(() {
+                        todoList.add(text);
+                      });
+                      todoController.clear();
+                    },
                     child: Text(
                       'Adicionar',
                       style: TextStyle(
@@ -40,9 +56,19 @@ class TodoListPage extends StatelessWidget {
                   ),
                 ],
               ),
-              SizedBox(
-                height: 30,
+              SizedBox(height: 30),
+              Flexible(
+                child: ListView(
+                  shrinkWrap: true,
+                  children: [
+                    for (String todo in todoList)
+                      ListTile(
+                        title: Text(todo),
+                      ),
+                  ],
+                ),
               ),
+              SizedBox(height: 30),
               Row(
                 children: [
                   Expanded(
