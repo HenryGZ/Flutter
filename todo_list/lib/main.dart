@@ -1,22 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:todo_list/pages/todo_list_page.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  MyApp({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      title: 'Todo List',
-      home: TodoList(),
+    return MaterialApp(
+      title: 'Flutter Demo',
+      home: TodoListPage(),
     );
   }
-}
-
-class TodoList extends StatefulWidget {
-  const TodoList({Key? key}) : super(key: key);
-  @override
-  State<TodoList> createState() => _TodoListState();
 }
