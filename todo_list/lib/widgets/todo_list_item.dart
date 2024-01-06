@@ -14,10 +14,12 @@ class TodoListItem extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 2.0),
       //o padding é um widget que permite definir um espaçamento para os widgets que estão dentro dele
       child: Slidable(
+        //widget que permite que o item da lista seja deslizável
         key: const ValueKey(0),
         startActionPane: ActionPane(
           motion: const ScrollMotion(),
-          dismissible: DismissiblePane(onDismissed: () {}),
+          //dismissible: DismissiblePane(onDismissed: () {}), esse comando faz com que o item quando seja deslizado até o final ele seja excluido da lista
+          //para fazer o comando de exclusão da lista deve-se criar uma função que exclua o item da lista e passar essa função para o onDismissed
           children: [
             SlidableAction(
               //define os icones que apareceram quando o evento slidable for ativado dentro do childre
@@ -36,6 +38,29 @@ class TodoListItem extends StatelessWidget {
               foregroundColor: Colors.white,
               icon: Icons.edit,
               label: 'Editar',
+              onPressed: (BuildContext context) {},
+            ),
+          ],
+        ),
+        endActionPane: ActionPane(
+          motion: const DrawerMotion(),
+          children: [
+            SlidableAction(
+              //como são dois icones deve haver duas açoes de fechamento
+
+              flex: 2,
+              backgroundColor: Colors.red,
+              foregroundColor: Colors.white,
+              icon: Icons.archive,
+              label: 'Arquivar',
+              onPressed: (BuildContext context) {},
+            ),
+            SlidableAction(
+              flex: 2,
+              backgroundColor: Colors.green,
+              foregroundColor: Colors.white,
+              icon: Icons.share,
+              label: 'Compartilhar',
               onPressed: (BuildContext context) {},
             ),
           ],
@@ -64,29 +89,6 @@ class TodoListItem extends StatelessWidget {
               ),
             ],
           ),
-        ),
-        endActionPane: ActionPane(
-          motion: DrawerMotion(),
-          children: [
-            SlidableAction(
-              //como são dois icones deve haver duas açoes de fechamento
-
-              flex: 2,
-              backgroundColor: Colors.red,
-              foregroundColor: Colors.white,
-              icon: Icons.archive,
-              label: 'Arquivar',
-              onPressed: (BuildContext context) {},
-            ),
-            SlidableAction(
-              flex: 2,
-              backgroundColor: Colors.green,
-              foregroundColor: Colors.white,
-              icon: Icons.share,
-              label: 'Compartilhar',
-              onPressed: (BuildContext context) {},
-            ),
-          ],
         ),
       ),
     );
